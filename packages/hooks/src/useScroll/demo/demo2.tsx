@@ -10,10 +10,10 @@ import React from 'react';
 import { useScroll } from 'ahooks';
 
 export default () => {
-  const scroll = useScroll(document);
+  const [position] = useScroll(document);
   return (
     <div>
-      <div>{JSON.stringify(scroll)}</div>
+      <div>{JSON.stringify(position)}</div>
     </div>
   );
 };

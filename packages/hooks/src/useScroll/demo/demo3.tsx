@@ -1,9 +1,9 @@
 /**
  * title: Controll listen on scroll status
- * desc: listen on scroll event between 100px ~ 200px in vertical direction
+ * desc: listen on scroll event between 100px ~ 200px in vertical direction.
  *
  * title.zh-CN: 控制滚动状态的监听
- * desc.zh-CN: 在垂直方向 100px 到 200px 的滚动范围内监听
+ * desc.zh-CN: 在垂直方向 100px 到 200px 的滚动范围内监听。
  */
 
 import React, { useRef } from 'react';
@@ -12,11 +12,11 @@ import { useScroll } from 'ahooks';
 export default () => {
   const ref = useRef(null);
 
-  const scroll = useScroll(ref, (val) => val.top > 100 && val.top < 200);
+  const [position] = useScroll(ref, (val) => val.top > 100 && val.top < 200);
 
   return (
     <>
-      <div>{JSON.stringify(scroll)}</div>
+      <div>{JSON.stringify(position)}</div>
       <div
         className={'main'}
         style={{

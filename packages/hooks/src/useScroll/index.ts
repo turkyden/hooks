@@ -1,16 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import usePersistFn from '../usePersistFn';
 import { BasicTarget, getTargetElement } from '../utils/dom';
 
 interface Position {
-  left: number;
   top: number;
+  left: number;
 }
+
+interface ScrollPosition {
+  top?: number;
+  left?: number;
+}
+
+type ScrollTo = (scrollPosition: ScrollPosition) => void
 
 export type Target = BasicTarget<HTMLElement | Document>;
 export type ScrollListenController = (val: Position) => boolean;
 
-function useScroll(target?: Target, shouldUpdate: ScrollListenController = () => true): Position {
+function useScroll(target?: Target, shouldUpdate: ScrollListenController = () => true): [Position, ScrollTo] {
   const [position, setPosition] = useState<Position>({
     left: NaN,
     top: NaN,
@@ -51,7 +58,16 @@ function useScroll(target?: Target, shouldUpdate: ScrollListenController = () =>
     };
   }, [target, shouldUpdatePersist]);
 
-  return position;
+  const scrollTo = useCallback((scrollPosition: ScrollPosition) => {
+    const el = getTargetElement(target, document);
+    const instance = el?.scrollTo ? el : window;
+    instance.scrollTo({
+      behavior: "smooth",
+      ...scrollPosition
+    })
+  }, [target, shouldUpdatePersist]);
+
+  return [position, scrollTo];
 }
 
 export default useScroll;

@@ -27,10 +27,14 @@ group:
 
 <code src="./demo/demo3.tsx" />
 
+### 滚动至指定距离
+
+<code src="./demo/demo4.tsx" />
+
 ## API
 
 ```typescript
-const position = useScroll(target, shouldUpdate);
+const [position, scrollTo] = useScroll(target, shouldUpdate);
 ```
 
 ### Params
@@ -46,3 +50,4 @@ const position = useScroll(target, shouldUpdate);
 | 参数     | 说明                   | 类型                          |
 |----------|------------------------|-------------------------------|
 | position | 滚动容器当前的滚动位置 | `{left: number, top: number}` |
+| scrollTo | 滚动触发事件 | `({ top?: number, left?: number}) => void` |
